@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Voting Results</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <!-- Your custom CSS -->
+    <link href="{{ url_for('static', filename='cover.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div class="container d-flex w-300 h-100 p-3 mx-auto flex-column">
+        <header class="masthead mb-auto">
+            <div class="inner">
+                <h4 class="masthead-brand">Settings</h4>
+            </div>
+        </header>
+
+        <form method="POST" action="{{ url_for('settings') }}">
+            <label for="artistName">Enter Artist's Name:</label>
+            <input type="text" id="artistName" name="artistName" required>
+            
+
+            <label for="photoFolder">Select Photo Folder:</label>
+            <select id="photoFolder" name="photoFolder">
+                {% for folder in photo_folders %}
+                    <option value="{{ folder }}">{{ folder }}</option>
+                {% endfor %}
+            </select>
+
+            <button type="submit" class="btn btn-primary mt-3">Save</button>
+        </form>
+
+        <form method="POST" action="{{ url_for('reset_counts') }}">
+            <button type="submit" class="btn btn-danger">Reset Counts</button>
+        </form>        
+
+        <footer class="mastfoot mt-auto">
+            <div class="inner">
+                <p>©Thomas van Zuilen - 2023</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

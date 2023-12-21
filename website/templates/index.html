@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>OIS images similarity</title>
+    <link rel="canonical" href="https://getbootstrap.com/examples/cover/">
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="{{ url_for('static', filename='cover.css') }}" rel="stylesheet">
+    <meta name="theme-color" content="#563d7c">
+</head>
+<body class="text-center">
+    <div class="container d-flex w-100 h-100 p-2 mx-auto flex-column">
+        <header class="masthead mb-auto">
+            <div class="inner">
+                <h4 class="masthead-brand">OIS images similarity</h4>
+            </div>
+        </header>
+
+        <main role="main" class="inner cover">
+            <h1 class="cover-heading">Which image was made by {{ artist_name }}?</h1>
+            <p class="lead">Click on the image to submit your answer</p>
+            <p class="lead">
+                <form method="POST" action="{{ url_for('vote') }}">
+                    <div class="row justify-content-center">
+                        {% for photo in all_photo_paths[session.get('photo_folder', 'default')] %}
+                            <div class="col-md-3">
+                                <input type="image"
+                                       src="{{ url_for('static', filename=photo) }}"
+                                       width="250px"
+                                       height="250px"
+                                       overflow= "hidden"
+                                       alt="{{ photo }}"
+                                       class="img-thumbnail mb-3"
+                                       onclick="submitForm('{{ photo }}')"
+                                >
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <input type="hidden" name="photo" value="">
+                </form>
+            </p>
+        </main>
+
+        <footer class="mastfoot mt-auto">
+            <div class="inner">
+                <p></p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        function submitForm(photo) {
+            document.forms[0].elements['photo'].value = photo;
+            document.forms[0].submit();
+        }
+    </script>
+</body>
+</html>

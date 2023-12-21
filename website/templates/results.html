@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Voting Results</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <!-- Your custom CSS -->
+    <link href="{{ url_for('static', filename='cover.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div class="container d-flex w-300 h-100 p-3 mx-auto flex-column">
+        <header class="masthead mb-auto">
+            <div class="inner">
+                <h4 class="masthead-brand">Voting Results</h4>
+            </div>
+        </header>
+
+        <main role="main" class="inner cover">
+            {% for folder, photo_data in all_photo_data.items() %}
+                <h2>{{ folder }}</h2>
+                <div class="row justify-content-center">
+                    {% for photo_path, data in photo_data.items() %}
+                        <div class="col-md-3 mb-4">
+                            <img
+                                src="{{ url_for('static', filename=photo_path) }}"
+                                width="250px"
+                                alt="{{ data['filename'] }}"
+                                class="img-thumbnail img-fluid"
+                            >
+                            <p class="text-center mt-2">Total Votes: {{ data['votes'] }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </main>       
+
+        <footer class="mastfoot mt-auto">
+            <div class="inner">
+                <p>©Thomas van Zuilen - 2023</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
